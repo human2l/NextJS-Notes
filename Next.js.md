@@ -82,3 +82,72 @@ xl: min-width: 1280px; // extra large device
 </Head>
 ```
 
+# Routing
+
+<img src="Next.js.assets/Screen Shot 2022-03-17 at 6.08.38 PM.png" alt="Screen Shot 2022-03-17 at 6.08.38 PM" style="zoom:50%;" />
+
+## Index Routes
+
+`index.js`in folder `pages` will automatically become the default route `/`
+
+i.e. pages/index.js -> `/`	pages/products/index.js -> `/products`
+
+<img src="Next.js.assets/Screen Shot 2022-03-17 at 6.12.36 PM.png" alt="Screen Shot 2022-03-17 at 6.12.36 PM" style="zoom:50%;" />
+
+## Nested Routes
+
+Any nested files inside the `Pages` folder are essentially nested route
+
+i.e. pages/products/phones.js -> `/products/phones`
+
+## Dynamic Routes
+
+To enable dynamic Routes, use brackets in the file name `[]`, whatever in the brackets becomes to a variable can be read by `{ useRouter }` from  `next/router`  through `query.id` attribute of router object created by `useRouter()`
+
+i.e. pages/products/[id].js -> `/products/101`,`/products/102`......
+
+```js
+import { useRouter } from "next/router";
+
+const Products = () => {
+  const router = useRouter();
+  return <div>Products id: {router.query.id}</div>;
+};
+
+export default Products;
+```
+
+Above code will show "Products id: 123" on page  when user access url `/products/123`
+
+## Add route using Link component
+
+<img src="Next.js.assets/Screen Shot 2022-03-17 at 6.38.02 PM.png" alt="Screen Shot 2022-03-17 at 6.38.02 PM" style="zoom:50%;" />
+
+`<a>`will refresh the page, `<Link>`won't
+
+```jsx
+import Link from 'next/link';
+
+export default () => {
+  return (
+    <div>
+      <Link href='/'><a>Back to home</a></Link> 
+    </div>
+  );
+}
+```
+
+Note: Remember to wrap the `<a>`, don't use `<Link>` only.
+
+### Link props
+
+`Link` accepts the following props:
+
+- `href` - The path or URL to navigate to. This is the only required prop
+- `as` - Optional decorator for the path that will be shown in the browser URL bar. Before Next.js 9.5.3 this was used for dynamic routes, check our [previous docs](https://nextjs.org/docs/tag/v9.5.2/api-reference/next/link#dynamic-routes) to see how it worked. Note: when this path differs from the one provided in `href` the previous `href`/`as` behavior is used as shown in the [previous docs](https://nextjs.org/docs/tag/v9.5.2/api-reference/next/link#dynamic-routes).
+- [`passHref`](https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag) - Forces `Link` to send the `href` property to its child. Defaults to `false`
+- `prefetch` - Prefetch the page in the background. Defaults to `true`. Any `<Link />` that is in the viewport (initially or through scroll) will be preloaded. Prefetch can be disabled by passing `prefetch={false}`. When `prefetch` is set to `false`, prefetching will still occur on hover. Pages using [Static Generation](https://nextjs.org/docs/basic-features/data-fetching/get-static-props) will preload `JSON` files with the data for faster page transitions. Prefetching is only enabled in production.
+- [`replace`](https://nextjs.org/docs/api-reference/next/link#replace-the-url-instead-of-push) - Replace the current `history` state instead of adding a new url into the stack. Defaults to `false`
+- [`scroll`](https://nextjs.org/docs/api-reference/next/link#disable-scrolling-to-the-top-of-the-page) - Scroll to the top of the page after a navigation. Defaults to `true`
+- [`shallow`](https://nextjs.org/docs/routing/shallow-routing) - Update the path of the current page without rerunning [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props), [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props) or [`getInitialProps`](https://nextjs.org/docs/api-reference/data-fetching/get-initial-props). Defaults to `false`
+- `locale` - The active locale is automatically prepended. `locale` allows for providing a different locale. When `false` `href` has to include the locale as the default behavior is disabled.
