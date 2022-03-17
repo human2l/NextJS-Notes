@@ -151,3 +151,115 @@ Note: Remember to wrap the `<a>`, don't use `<Link>` only.
 - [`scroll`](https://nextjs.org/docs/api-reference/next/link#disable-scrolling-to-the-top-of-the-page) - Scroll to the top of the page after a navigation. Defaults to `true`
 - [`shallow`](https://nextjs.org/docs/routing/shallow-routing) - Update the path of the current page without rerunning [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props), [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props) or [`getInitialProps`](https://nextjs.org/docs/api-reference/data-fetching/get-initial-props). Defaults to `false`
 - `locale` - The active locale is automatically prepended. `locale` allows for providing a different locale. When `false` `href` has to include the locale as the default behavior is disabled.
+
+# Image Component
+
+Next.js by default lazy load all of the images on the page. As user scroll down, Next.js will download the image that about to show.
+
+# Document in Next.js
+
+`_app.js` is only responsible for `<body>` . To handle whatever outside the body, like `<html>` and  `<head>`, we use `Document`
+
+Create `_document.js` in `/pages`
+
+Create a class `MyDocument extends Document` from 'next/document'
+
+```js
+import Document, { Html, Head, Main, NextScript } from "next/document";
+
+class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
+  }
+
+  render() {
+    return (
+      <Html>
+        <Head />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+
+export default MyDocument;
+```
+
+Note: `<Head>` Component here will be applied to all the pages in our app
+
+`<Main>`Component responsible for the outest `div` in our app, add id on it: `<div id="__next">`
+
+`<NextScript>`Component responsible for adding all of the scripts in our app
+
+Develop Note: Each time when we changes `_document.js` we need to restart the server
+
+## Apply fonts in Document
+
+There are several ways you can setup fonts in Next.js.
+
+1. You can choose to download those fonts, store them in your project and then apply those in your code.
+2. You can download those directly from Google Fonts, set them inside _document.js without having to store them locally in your project for example,[ check the docs](https://nextjs.org/docs/basic-features/font-optimization)
+
+For the second way, copy the font files into `/public/fonts/`, then we need to add `<link>` in `_document.js`:
+
+#### _document.js
+
+```jsx
+<Head>
+  <link
+    rel="preload"
+    href="/fonts/IBMPlexSans-Bold.ttf"
+    as="font"
+    crossOrigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/IBMPlexSans-Regular.ttf"
+    as="font"
+    crossOrigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/IBMPlexSans-SemiBold.ttf"
+    as="font"
+    crossOrigin="anonymous"
+  />
+ </Head>
+```
+
+<img src="Next.js.assets/Screen Shot 2022-03-17 at 10.24.04 PM.png" alt="Screen Shot 2022-03-17 at 10.24.04 PM" style="zoom:50%;" />
+
+#### globals.css
+
+```css
+body {
+	font-family: IMBPlexSans, //other fonts
+}
+@font-face {
+  font-family: 'IBMPlexSans';
+  font-style: normal;
+  font-weight: 500;
+  src: url(/fonts/IBMPlexSans-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'IBMPlexSans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(/fonts/IBMPlexSans-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'IBMPlexSans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(/fonts/IBMPlexSans-Bold.ttf) format('truetype');
+}
+```
+
+
+
