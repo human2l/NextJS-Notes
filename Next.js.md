@@ -20,7 +20,7 @@ Resource: https://nextjs.org/docs/upgrading
 
 ## Next.js project folder structure
 
-<img src="Next.js.assets/Screen Shot 2022-03-17 at 10.52.47 AM.png" alt="Screen Shot 2022-03-17 at 10.52.47 AM" style="zoom:50%;" />
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 12.55.44 PM.png" alt="Screen Shot 2022-03-18 at 12.55.44 PM" style="zoom:50%;" />
 
 ### Pages:
 
@@ -84,7 +84,7 @@ xl: min-width: 1280px; // extra large device
 
 # Routing
 
-<img src="Next.js.assets/Screen Shot 2022-03-17 at 6.08.38 PM.png" alt="Screen Shot 2022-03-17 at 6.08.38 PM" style="zoom:50%;" />
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 12.58.57 PM.png" alt="Screen Shot 2022-03-18 at 12.58.57 PM" style="zoom:50%;" />
 
 ## Index Routes
 
@@ -121,7 +121,7 @@ Above code will show "Products id: 123" on page  when user access url `/products
 
 ## Add route using Link component
 
-<img src="Next.js.assets/Screen Shot 2022-03-17 at 6.38.02 PM.png" alt="Screen Shot 2022-03-17 at 6.38.02 PM" style="zoom:50%;" />
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 12.59.55 PM.png" alt="Screen Shot 2022-03-18 at 12.59.55 PM" style="zoom:50%;" />
 
 `<a>`will refresh the page, `<Link>`won't
 
@@ -231,7 +231,7 @@ For the second way, copy the font files into `/public/fonts/`, then we need to a
  </Head>
 ```
 
-<img src="Next.js.assets/Screen Shot 2022-03-17 at 10.24.04 PM.png" alt="Screen Shot 2022-03-17 at 10.24.04 PM" style="zoom:50%;" />
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 1.00.57 PM.png" alt="Screen Shot 2022-03-18 at 1.00.57 PM" style="zoom:50%;" />
 
 #### globals.css
 
@@ -261,5 +261,52 @@ body {
 }
 ```
 
+# SEO and Rendering Techniques
 
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 11.59.35 AM.png" alt="Screen Shot 2022-03-18 at 11.59.35 AM" style="zoom:50%;" />
 
+### Indexing
+
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 12.08.21 PM.png" alt="Screen Shot 2022-03-18 at 12.08.21 PM" style="zoom:50%;" />
+
+### Analysis
+
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 1.01.55 PM.png" alt="Screen Shot 2022-03-18 at 1.01.55 PM" style="zoom:50%;" />
+
+## Next.js Pre-rendering
+
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 12.18.59 PM.png" alt="Screen Shot 2022-03-18 at 12.18.59 PM" style="zoom:50%;" />
+
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 1.02.36 PM.png" alt="Screen Shot 2022-03-18 at 1.02.36 PM" style="zoom:50%;" />
+
+The key difference is, Next.js app can show user the content  before JS loads. 
+
+That means bots can read the content of the page much quicker.
+
+## Rendering Techniques in Next.js
+
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 2.20.31 PM.png" alt="Screen Shot 2022-03-18 at 2.20.31 PM" style="zoom:50%;" />
+
+### Static Generation (SSG)
+
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 1.19.01 PM.png" alt="Screen Shot 2022-03-18 at 1.19.01 PM" style="zoom:50%;" />
+
+When user access our website, no new file generated
+
+### Incremental Site Regeration (ISR)
+
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 2.21.45 PM.png" alt="Screen Shot 2022-03-18 at 2.21.45 PM" style="zoom:50%;" />
+
+We set an interval. i.e. 60s. When user first request to our page, we only serve the cached one(v1) no matter how many times user send new requests. Untill 60s passed, server will generate the latest page when user request.
+
+### Server-side rendering (SSR)
+
+Applying this when we need to provide user the latest data timely. i.e. news(we want user see the latest news every time). We won't be able to cache data on CDN. We also need to generate page for each request. These make the process slower
+
+### Client-side rendering (CSR)
+
+<img src="Next.js.assets/Screen Shot 2022-03-18 at 2.39.19 PM.png" alt="Screen Shot 2022-03-18 at 2.39.19 PM" style="zoom:50%;" />
+
+i.e. personal dashboard. administration software
+
+`SWR` is a React hook built by Next.js. Very useful for client side fetching
