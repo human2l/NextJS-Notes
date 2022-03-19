@@ -291,7 +291,36 @@ That means bots can read the content of the page much quicker.
 
 <img src="Next.js.assets/Screen Shot 2022-03-18 at 1.19.01 PM.png" alt="Screen Shot 2022-03-18 at 1.19.01 PM" style="zoom:50%;" />
 
-When user access our website, no new file generated
+When user access our website, no new file generated.
+
+All pages without external data will be defaultly pre-rendered.
+
+Pages with external data will fetch the data first(inside `getStaticProps()` function) then pre-rendered
+
+#### getStaticProps
+
+<img src="Next.js.assets/Screen Shot 2022-03-19 at 11.56.36 AM.png" alt="Screen Shot 2022-03-19 at 11.56.36 AM" style="zoom:50%;" />
+
+Everything inside `getStaticProps()` will be server side code. i.e. `console.log()` will be shown in server terminal
+
+<img src="Next.js.assets/Screen Shot 2022-03-19 at 11.58.04 AM.png" alt="Screen Shot 2022-03-19 at 11.58.04 AM" style="zoom:50%;" />
+
+```react
+export async function getStaticProps(context) {
+  //fetch data here
+  const data = fetch('blahblah')
+  return {
+    props: {
+      data
+    }, // will be passed to the page component as props
+  };
+}
+
+export default function Home(props) {
+	console.log(props.data)
+  //-----------
+}
+```
 
 ### Incremental Site Regeration (ISR)
 
@@ -310,3 +339,4 @@ Applying this when we need to provide user the latest data timely. i.e. news(we 
 i.e. personal dashboard. administration software
 
 `SWR` is a React hook built by Next.js. Very useful for client side fetching
+
