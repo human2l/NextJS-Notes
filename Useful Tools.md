@@ -24,3 +24,8 @@ class Button extends React.Component {
 }
 ```
 
+## Next.js Code Elimination
+
+https://next-code-elimination.vercel.app/
+
+<img src="Useful Tools.assets/Screen Shot 2022-03-19 at 12.10.43 PM.png" alt="Screen Shot 2022-03-19 at 12.10.43 PM" style="zoom:50%;" />
