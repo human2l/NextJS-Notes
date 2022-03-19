@@ -303,7 +303,7 @@ Pages with external data will fetch the data first(inside `getStaticProps()` fun
 
 Everything inside `getStaticProps()` will be server side code. i.e. `console.log()` will be shown in server terminal
 
-<img src="Next.js.assets/Screen Shot 2022-03-19 at 11.58.04 AM.png" alt="Screen Shot 2022-03-19 at 11.58.04 AM" style="zoom:50%;" />
+<img src="Next.js.assets/Screen Shot 2022-03-19 at 11.58.04 AM.png" alt="Screen Shot 2022-03-19 at 11.58.04 AM" style="zoom:40%;" />
 
 ```react
 export async function getStaticProps(context) {
@@ -320,6 +320,88 @@ export default function Home(props) {
 	console.log(props.data)
   //-----------
 }
+```
+
+#### getStaticPahts
+
+<img src="Next.js.assets/Screen Shot 2022-03-19 at 12.57.55 PM.png" alt="Screen Shot 2022-03-19 at 12.57.55 PM" style="zoom:50%;" />
+
+<img src="Next.js.assets/Screen Shot 2022-03-19 at 12.58.58 PM.png" alt="Screen Shot 2022-03-19 at 12.58.58 PM" style="zoom:40%;" />
+
+```react
+export const getStaticProps = async (staticProps) => {
+  const params = staticProps.params;
+  return {
+    props: {
+      coffeeStore: coffeeStoresData.find((coffeeStore) => {
+        return coffeeStore.id.toString() === params.id;
+      }),
+    },
+  };
+};
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [{ params: { id: "0" } }, { params: { id: "1" } }],
+    fallback: false,
+  };
+};
+
+const CoffeeStore = (props) => {
+  const router = useRouter();
+  return (
+    <div>
+      CoffeeStore {router.query.id}
+      <Link href="/">
+        <a>Back to home</a>
+      </Link>
+      <p>{props.coffeeStore.id}</p>
+      <p>{props.coffeeStore.name}</p>
+    </div>
+  );
+};
+```
+
+#### fallback: false
+
+<img src="Next.js.assets/Screen Shot 2022-03-19 at 1.28.26 PM.png" alt="Screen Shot 2022-03-19 at 1.28.26 PM" style="zoom:60%;" />
+
+Note: `getStaticPaths()` tells server the "static path" to be pre-rendered
+
+`fallback: false` will redirect any routes doesn't exist in `getStaticPaths()` to 404 page.
+
+#### fallback: true
+
+<img src="Next.js.assets/Screen Shot 2022-03-19 at 1.41.36 PM.png" alt="Screen Shot 2022-03-19 at 1.41.36 PM" style="zoom:50%;" />
+
+When user access a route does not in `getStaticPaths()`,  server will treat this route not "static pre-rendered" and try to download the page to the client. 
+
+In case above, server give error because it needs time to access the data, however meanwhile the render is already begin rendering the page and failed to get `props.coffeeStore.id`
+
+To prevent error above, we need to add a loading function by`{ useRouter }` from  `next/router`
+
+<img src="Next.js.assets/Screen Shot 2022-03-19 at 1.51.20 PM.png" alt="Screen Shot 2022-03-19 at 1.51.20 PM" style="zoom:50%;" />
+
+```react
+const CoffeeStore = (props) => {
+  const router = useRouter();
+
+  //router.isFallback tells us if the newly download data is ready or not
+  if (router.isFallback) {
+    return <h1>Loading...</h1>;
+  }
+
+  return (
+    <div>
+      CoffeeStore {router.query.id}
+      <Link href="/">
+        <a>Back to home</a>
+      </Link>
+      <p>{props.coffeeStore.id}</p>
+      <p>{props.coffeeStore.name}</p>
+    </div>
+  );
+};
 ```
 
 ### Incremental Site Regeration (ISR)
