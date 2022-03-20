@@ -422,3 +422,94 @@ i.e. personal dashboard. administration software
 
 `SWR` is a React hook built by Next.js. Very useful for client side fetching
 
+# Environment Variables in Next.js
+
+## Client side environment variables
+
+To add environment variables to the JavaScript bundle, open `next.config.js` and add the `env` config:
+
+```js
+module.exports = {
+  env: {
+    customKey: 'my-value',
+  },
+}
+```
+
+Now you can access `process.env.customKey` in your code. For example:
+
+```jsx
+function Page() {
+  return <h1>The value of customKey is: {process.env.customKey}</h1>
+}
+
+export default Page
+```
+
+Next.js will replace `process.env.customKey` with `'my-value'` at build time. Trying to destructure `process.env` variables won't work due to the nature of webpack [DefinePlugin](https://webpack.js.org/plugins/define-plugin/).
+
+For example, the following line:
+
+```jsx
+return <h1>The value of customKey is: {process.env.customKey}</h1>
+```
+
+Will end up being:
+
+```jsx
+return <h1>The value of customKey is: {'my-value'}</h1>
+```
+
+## Server side environment variables
+
+Next.js has built-in support for loading environment variables from `.env.local` into `process.env`.
+
+An example `.env.local`:
+
+```bash
+DB_HOST=localhost
+DB_USER=myuser
+DB_PASS=mypassword
+```
+
+This loads `process.env.DB_HOST`, `process.env.DB_USER`, and `process.env.DB_PASS` into the Node.js environment automatically allowing you to use them in [Next.js data fetching methods](https://nextjs.org/docs/basic-features/data-fetching/overview) and [API routes](https://nextjs.org/docs/api-routes/introduction).
+
+For example, using [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props):
+
+```js
+// pages/index.js
+export async function getStaticProps() {
+  const db = await myDB.connect({
+    host: process.env.DB_HOST,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+  })
+  // ...
+}
+```
+
+### Exposing Environment Variables to the Browser
+
+By default environment variables are only available in the Node.js environment, meaning they won't be exposed to the browser.
+
+In order to expose a variable to the browser you have to prefix the variable with `NEXT_PUBLIC_`. For example:
+
+```bash
+NEXT_PUBLIC_ANALYTICS_ID=abcdefghijk
+```
+
+This loads `process.env.NEXT_PUBLIC_ANALYTICS_ID` into the Node.js environment automatically, allowing you to use it anywhere in your code. The value will be inlined into JavaScript sent to the browser because of the `NEXT_PUBLIC_` prefix. This inlining occurs at build time, so your various `NEXT_PUBLIC_` envs need to be set when the project is built.
+
+```js
+// pages/index.js
+import setupAnalyticsService from '../lib/my-analytics-service'
+
+// NEXT_PUBLIC_ANALYTICS_ID can be used here as it's prefixed by NEXT_PUBLIC_
+setupAnalyticsService(process.env.NEXT_PUBLIC_ANALYTICS_ID)
+
+function HomePage() {
+  return <h1>Hello World</h1>
+}
+
+export default HomePage
+```
