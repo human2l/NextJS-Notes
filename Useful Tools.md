@@ -42,3 +42,11 @@ https://foursquare.com/products/places-api/
 
 Search places: https://developer.foursquare.com/reference/place-search
 
+## Unsplash (free photos api)
+
+https://unsplash.com/developers
+
+Unsplash JS SDK: https://github.com/unsplash/unsplash-js
+
+
+
