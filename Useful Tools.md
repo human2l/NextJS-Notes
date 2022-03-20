@@ -29,3 +29,16 @@ class Button extends React.Component {
 https://next-code-elimination.vercel.app/
 
 <img src="Useful Tools.assets/Screen Shot 2022-03-19 at 12.10.43 PM.png" alt="Screen Shot 2022-03-19 at 12.10.43 PM" style="zoom:50%;" />
+
+## Icons
+
+https://fonts.google.com/icons (material icons)
+
+## Foursquare Place API
+
+<img src="Useful Tools.assets/Screen Shot 2022-03-20 at 1.44.20 PM.png" alt="Screen Shot 2022-03-20 at 1.44.20 PM" style="zoom:30%;" />
+
+https://foursquare.com/products/places-api/
+
+Search places: https://developer.foursquare.com/reference/place-search
+
