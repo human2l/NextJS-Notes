@@ -420,6 +420,8 @@ Applying this when we need to provide user the latest data timely. i.e. news(we 
 
 i.e. personal dashboard. administration software
 
+Using React `useEffect` hooks
+
 `SWR` is a React hook built by Next.js. Very useful for client side fetching
 
 # Environment Variables in Next.js
@@ -513,3 +515,95 @@ function HomePage() {
 
 export default HomePage
 ```
+
+# React useContext with useReducer
+
+React Context provide a scope that states can be shared by all components.
+
+`useReducer` Helps when we need to handle multiple state.
+
+#### _app.js
+
+```react
+import { useReducer, createContext } from "react";
+import "../styles/globals.css";
+
+export const StoreContext = createContext();
+
+export const ACTION_TYPES = {
+  SET_LAT_LONG: "SET_LAT_LONG",
+  SET_COFFEE_STORES: "SET_COFFEE_STORES",
+};
+
+const storeReducer = (state, action) => {
+  switch (action.type) {
+    case ACTION_TYPES.SET_LAT_LONG: {
+      return { ...state, latLong: action.payload.latLong };
+    }
+    case ACTION_TYPES.SET_COFFEE_STORES: {
+      return { ...state, coffeeStores: action.payload.coffeeStores };
+    }
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+const StoreProvider = ({ children }) => {
+  const initialState = {
+    latLong: "",
+    coffeeStores: [],
+  };
+
+  const [state, dispatch] = useReducer(storeReducer, initialState);
+
+  return (
+    <StoreContext.Provider value={{ state, dispatch }}>
+      {children}
+    </StoreContext.Provider>
+  );
+};
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <StoreProvider>
+      <Component {...pageProps} />;
+    </StoreProvider>
+  );
+}
+
+export default MyApp;
+```
+
+To update state:
+
+```js
+import { useContext } from "react";
+import { ACTION_TYPES, StoreContext } from "../pages/_app";
+const { dispatch } = useContext(StoreContext);
+//-----------
+dispatch({
+  type: ACTION_TYPES.SET_LAT_LONG,
+  payload: {
+    latLong: `${latitude},${longitude}`,
+  },
+});
+```
+
+To get state:
+
+```js
+import { useContext } from "react";
+import { ACTION_TYPES, StoreContext } from "./_app";
+//destructure state
+//const { state } = useContext(StoreContext);
+//const { coffeeStores, latLong } = state;
+//or
+//destructure state(nested way)
+const {
+  state: {
+    coffeeStores,
+    latLong
+  }
+} = useContext(StoreContext)
+```
+
