@@ -119,6 +119,16 @@ export default Products;
 
 Above code will show "Products id: 123" on page  when user access url `/products/123`
 
+## Catch All Routes
+
+Catch all routes under a specific url
+
+Use `...` to forward all suitable routes to the file.
+
+`localhost:3000/api/coffee/hello/world/blahblah` =>  `/api/coffee/[...whateveritis].js`
+
+Note: router will first try figure out if a url is meet index/next/dynamic routes, if not, then try "catch all routes" rule
+
 ## Add route using Link component
 
 <img src="Next.js.assets/Screen Shot 2022-03-18 at 12.59.55 PM.png" alt="Screen Shot 2022-03-18 at 12.59.55 PM" style="zoom:50%;" />
