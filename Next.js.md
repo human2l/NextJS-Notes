@@ -617,3 +617,81 @@ const {
 } = useContext(StoreContext)
 ```
 
+# Serverless Function (API)
+
+<img src="Next.js.assets/Screen Shot 2022-03-22 at 9.48.55 AM.png" alt="Screen Shot 2022-03-22 at 9.48.55 AM" style="zoom:50%;" />
+
+<img src="Next.js.assets/Screen Shot 2022-03-22 at 9.49.19 AM.png" alt="Screen Shot 2022-03-22 at 9.49.19 AM" style="zoom:50%;" />
+
+<img src="Next.js.assets/Screen Shot 2022-03-22 at 9.49.50 AM.png" alt="Screen Shot 2022-03-22 at 9.49.50 AM" style="zoom:50%;" />
+
+Serverless: no need to maintain server infrastructure
+
+<img src="Next.js.assets/Screen Shot 2022-03-22 at 9.55.33 AM.png" alt="Screen Shot 2022-03-22 at 9.55.33 AM" style="zoom:50%;" />
+
+<img src="Next.js.assets/Screen Shot 2022-03-22 at 10.19.56 AM.png" alt="Screen Shot 2022-03-22 at 10.19.56 AM" style="zoom:50%;" />
+
+API routes provide a solution to build your **API** with Next.js.
+
+Any file inside the folder `pages/api` is mapped to `/api/*` and will be treated as an API endpoint instead of a `page`. They are server-side only bundles and won't increase your client-side bundle size.
+
+For example, the following API route `pages/api/user.js` returns a `json` response with a status code of `200`:
+
+```js
+export default function handler(req, res) {
+  res.status(200).json({ name: 'John Doe' })
+}
+```
+
+## Request
+
+API routes provide built in middlewares which parse the incoming request (`req`). Those middlewares are:
+
+- `req.cookies` - An object containing the cookies sent by the request. Defaults to `{}`
+- `req.query` - An object containing the [query string](https://en.wikipedia.org/wiki/Query_string). Defaults to `{}`
+- `req.body` - An object containing the body parsed by `content-type`, or `null` if no body was sent
+
+## Response
+
+The [Server Response object](https://nodejs.org/api/http.html#http_class_http_serverresponse), (often abbreviated as `res`) includes a set of Express.js-like helper methods to improve the developer experience and increase the speed of creating new API endpoints.
+
+The included helpers are:
+
+- `res.status(code)` - A function to set the status code. `code` must be a valid [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
+- `res.json(body)` - Sends a JSON response. `body` must be a [serializable object](https://developer.mozilla.org/en-US/docs/Glossary/Serialization)
+- `res.send(body)` - Sends the HTTP response. `body` can be a `string`, an `object` or a `Buffer`
+- `res.redirect([status,] path)` - Redirects to a specified path or URL. `status` must be a valid [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). If not specified, `status` defaults to "307" "Temporary redirect".
+- `res.unstable_revalidate(urlPath)` - [Revalidate a page on demand](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation-beta) using `getStaticProps`. `urlPath` must be a `string`.
+
+#### /pages/api/getCoffeeStoresByLocation
+
+```js
+import fetchCoffeeStores from "../../lib/coffee-store";
+
+const getCoffeeStoresByLocation = async (req, res) => {
+  try {
+    const { latLong, limit } = req.query;
+    const response = await fetchCoffeeStores(latLong, 30);
+    res.status(200);
+    res.json(response);
+  } catch (error) {
+    console.error("There is an error:", error);
+    res.status(500);
+    res.json({ message: "Something went wrong", error });
+  }
+};
+
+export default getCoffeeStoresByLocation;
+```
+
+Then the api can be called by `/pages`code:
+
+#### /pages/index.js
+
+```react
+const fetchedCoffeeStores = await fetch(
+    `/api/getCoffeeStoresByLocation?latLong=${latLong}&limit=30`
+);
+```
+
+Note: fetch API route from `getStaticProps` is **NOT recommanded**, we should directly write server-side code in `getStaticProps`
