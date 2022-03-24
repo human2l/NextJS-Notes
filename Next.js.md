@@ -434,6 +434,37 @@ Using React `useEffect` hooks
 
 `SWR` is a React hook built by Next.js. Very useful for client side fetching
 
+# SWR
+
+**stale-while-revalidate**
+
+`npm install swr`
+
+If your page contains frequently updating data, and you don’t need to pre-render the data, SWR is a perfect fit and no special setup needed: just import `useSWR` and use the hook inside any components that use the data.
+
+Here’s how it works:
+
+- First, immediately show the page without data (or cached data with SWR). You can show loading states for missing data.
+- Then, fetch the data on the client side and display it when ready.
+
+This approach works well for user dashboard pages, for example. Because a dashboard is a private, user-specific page, SEO is not relevant and the page doesn’t need to be pre-rendered. The data is frequently updated, which requires request-time data fetching.
+
+```react
+const fetcher = (url) => axios.get(url).then((res) => res.data);
+// or use default fetch:
+// const fetcher = (url) => fetch(url).then((res) => res.json());
+  const { data, error } = useSWR(`/api/getCoffeeStoreById?id=${id}`, fetcher);//we can add a third param as initial data
+  useEffect(() => {
+    if (data && data.length > 0) {
+      console.log("data from SWR", data);
+      setCoffeeStore(data[0]);
+    }
+  }, [data]);
+  if (error) <div>Something went wrong retrieving coffee store page: {error}</div>;
+```
+
+
+
 # Environment Variables in Next.js
 
 ## Client side environment variables
@@ -695,3 +726,4 @@ const fetchedCoffeeStores = await fetch(
 ```
 
 Note: fetch API route from `getStaticProps` is **NOT recommanded**, we should directly write server-side code in `getStaticProps`
+
