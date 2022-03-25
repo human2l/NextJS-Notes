@@ -463,7 +463,7 @@ const fetcher = (url) => axios.get(url).then((res) => res.data);
   if (error) <div>Something went wrong retrieving coffee store page: {error}</div>;
 ```
 
-
+SWR will polling request to the server after a few seconds
 
 # Environment Variables in Next.js
 
@@ -726,4 +726,20 @@ const fetchedCoffeeStores = await fetch(
 ```
 
 Note: fetch API route from `getStaticProps` is **NOT recommanded**, we should directly write server-side code in `getStaticProps`
+
+# Lint
+
+#### package.json
+
+```json
+"scripts": {
+  "lint": "next lint"
+}
+```
+
+Next.js will automatically install `eslint` and `eslint-config-next` as development dependencies in your application and create an `.eslintrc.json` file in the root of your project that includes your selected configuration.
+
+`npm run lint`
+
+More eslint plugin : https://nextjs.org/docs/basic-features/eslint
 
