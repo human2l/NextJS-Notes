@@ -799,3 +799,11 @@ To change Serverless Functions server, need to go Pro plan
 
 Netlify use next.js plugin to makes it work.
 
+## Lighthouse Performance
+
+Use Chrome lighhouse tool or https://web.dev to get a lighthouse report
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 10.36.58 PM.png" alt="Screen Shot 2022-03-25 at 10.36.58 PM" style="zoom:50%;" />
+
+try to fix it one by one till all green
+
