@@ -743,3 +743,40 @@ Next.js will automatically install `eslint` and `eslint-config-next` as developm
 
 More eslint plugin : https://nextjs.org/docs/basic-features/eslint
 
+# Deployment
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 11.47.17 AM.png" alt="Screen Shot 2022-03-25 at 11.47.17 AM" style="zoom:50%;" />
+
+<img src="Next.js.assets/Screen Shot 2022-03-22 at 9.55.33 AM.png" alt="Screen Shot 2022-03-22 at 9.55.33 AM" style="zoom:50%;" />
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 12.00.30 PM.png" alt="Screen Shot 2022-03-25 at 12.00.30 PM" style="zoom:50%;" />
+
+`npm run build`
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 3.03.12 PM.png" alt="Screen Shot 2022-03-25 at 3.03.12 PM" style="zoom:50%;" />
+
+`npm run start` to start server
+
+## Cloud Ready Application
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 7.52.10 PM.png" alt="Screen Shot 2022-03-25 at 7.52.10 PM" style="zoom:50%;" />
+
+### Deploy on Vercel
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 8.25.22 PM.png" alt="Screen Shot 2022-03-25 at 8.25.22 PM" style="zoom:50%;" />
+
+Add environment variables from `.env.local`file:
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 8.30.46 PM.png" alt="Screen Shot 2022-03-25 at 8.30.46 PM" style="zoom:50%;" />
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 8.33.47 PM.png" alt="Screen Shot 2022-03-25 at 8.33.47 PM" style="zoom:50%;" />
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 8.35.23 PM.png" alt="Screen Shot 2022-03-25 at 8.35.23 PM" style="zoom:50%;" />
+
+All of the Serverless functions logs can be checked here:
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 8.54.03 PM.png" alt="Screen Shot 2022-03-25 at 8.54.03 PM" style="zoom:50%;" />
+
+Note: The Realtime Logs cannot persist, or we have to use an external server
+
+Vercel uses Vercel's Edge Network as CDN
