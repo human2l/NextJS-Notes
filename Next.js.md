@@ -777,6 +777,19 @@ All of the Serverless functions logs can be checked here:
 
 <img src="Next.js.assets/Screen Shot 2022-03-25 at 8.54.03 PM.png" alt="Screen Shot 2022-03-25 at 8.54.03 PM" style="zoom:50%;" />
 
-Note: The Realtime Logs cannot persist, or we have to use an external server
+Note: The Realtime Logs cannot persist, or we have to use an external service. (`set up a Log Drain` in the image above)
 
-Vercel uses Vercel's Edge Network as CDN
+Vercel uses Vercel's Edge Network as CDN. Vercel will automatically push app to all of the Global Edge Network.
+
+Serverless Functions by default runs in iad1 server.
+
+| iad1 | Washington, D.C., USA | AWS us-east-1 |
+| ---- | --------------------- | ------------- |
+|      |                       |               |
+
+To change Serverless Functions server, need to go Pro plan
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 9.14.08 PM.png" alt="Screen Shot 2022-03-25 at 9.14.08 PM" style="zoom:50%;" />
+
+### Deploy on Netlify
+
