@@ -763,6 +763,8 @@ More eslint plugin : https://nextjs.org/docs/basic-features/eslint
 
 ### Deploy on Vercel
 
+Vercel created the next.js framework, so it compated very will with vercel deployment
+
 <img src="Next.js.assets/Screen Shot 2022-03-25 at 8.25.22 PM.png" alt="Screen Shot 2022-03-25 at 8.25.22 PM" style="zoom:50%;" />
 
 Add environment variables from `.env.local`file:
@@ -792,4 +794,8 @@ To change Serverless Functions server, need to go Pro plan
 <img src="Next.js.assets/Screen Shot 2022-03-25 at 9.14.08 PM.png" alt="Screen Shot 2022-03-25 at 9.14.08 PM" style="zoom:50%;" />
 
 ### Deploy on Netlify
+
+<img src="Next.js.assets/Screen Shot 2022-03-25 at 10.09.26 PM.png" alt="Screen Shot 2022-03-25 at 10.09.26 PM" style="zoom:50%;" />
+
+Netlify use next.js plugin to makes it work.
 
