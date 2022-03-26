@@ -212,9 +212,11 @@ Develop Note: Each time when we changes `_document.js` we need to restart the se
 There are several ways you can setup fonts in Next.js.
 
 1. You can choose to download those fonts, store them in your project and then apply those in your code.
-2. You can download those directly from Google Fonts, set them inside _document.js without having to store them locally in your project for example,[ check the docs](https://nextjs.org/docs/basic-features/font-optimization)
+2. You can copy links directly from Google Fonts, set them inside _document.js without having to store them locally in your project for example,[ check the docs](https://nextjs.org/docs/basic-features/font-optimization)
 
-For the second way, copy the font files into `/public/fonts/`, then we need to add `<link>` in `_document.js`:
+### For the first way:
+
+Copy the font files into `/public/fonts/`, then we need to add `<link>` in `_document.js`:
 
 #### _document.js
 
@@ -270,6 +272,54 @@ body {
   src: url(/fonts/IBMPlexSans-Bold.ttf) format('truetype');
 }
 ```
+
+### For the second way:
+
+Copy the link from google fonts:
+
+<img src="Next.js.assets/Screen Shot 2022-03-26 at 2.29.55 PM.png" alt="Screen Shot 2022-03-26 at 2.29.55 PM" style="zoom:50%;" />
+
+#### _document.js
+
+```react
+import Document, { Html, Head, Main, NextScript } from "next/document";
+
+class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
+  }
+
+  render() {
+    return (
+      <Html>
+        <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="true"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
+            rel="stylesheet"
+          />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+
+export default MyDocument;
+```
+
+And apply the css rules in `globals.css`:
+
+<img src="Next.js.assets/Screen Shot 2022-03-26 at 2.33.10 PM.png" alt="Screen Shot 2022-03-26 at 2.33.10 PM" style="zoom:50%;" />
 
 # SEO and Rendering Techniques
 
