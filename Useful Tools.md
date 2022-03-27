@@ -60,3 +60,9 @@ Bases -> HELP -> API document
 
 https://github.com/Airtable/airtable.js
 
+## Framer
+
+animation
+
+https://www.framer.com/docs/
+
