@@ -472,7 +472,9 @@ We set an interval. i.e. 60s. When user first request to our page, we only serve
 
 ### Server-side rendering (SSR)
 
-Applying this when we need to provide user the latest data timely. i.e. news(we want user see the latest news every time). We won't be able to cache data on CDN. We also need to generate page for each request. These make the process slower
+Applying this when we need to provide user the latest data timely. i.e. news(we want user see the latest news every time). We won't be able to cache data on CDN. We also need to generate page for each request. These make the process slower on server side, but makes client side faster than CSR
+
+
 
 ### Client-side rendering (CSR)
 
