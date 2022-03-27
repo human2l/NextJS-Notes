@@ -343,11 +343,11 @@ The key difference is, Next.js app can show user the content  before JS loads.
 
 That means bots can read the content of the page much quicker.
 
-## Rendering Techniques in Next.js
+# Rendering Techniques in Next.js
 
 <img src="Next.js.assets/Screen Shot 2022-03-18 at 2.20.31 PM.png" alt="Screen Shot 2022-03-18 at 2.20.31 PM" style="zoom:50%;" />
 
-### Static Generation (SSG)
+## Static Generation (SSG)
 
 <img src="Next.js.assets/Screen Shot 2022-03-18 at 1.19.01 PM.png" alt="Screen Shot 2022-03-18 at 1.19.01 PM" style="zoom:50%;" />
 
@@ -357,7 +357,7 @@ All pages without external data will be defaultly pre-rendered.
 
 Pages with external data will fetch the data first(inside `getStaticProps()` function) then pre-rendered
 
-#### getStaticProps
+### getStaticProps
 
 <img src="Next.js.assets/Screen Shot 2022-03-19 at 11.56.36 AM.png" alt="Screen Shot 2022-03-19 at 11.56.36 AM" style="zoom:50%;" />
 
@@ -382,7 +382,7 @@ export default function Home(props) {
 }
 ```
 
-#### getStaticPahts
+### getStaticPahts
 
 <img src="Next.js.assets/Screen Shot 2022-03-19 at 12.57.55 PM.png" alt="Screen Shot 2022-03-19 at 12.57.55 PM" style="zoom:50%;" />
 
@@ -422,7 +422,7 @@ const CoffeeStore = (props) => {
 };
 ```
 
-#### fallback: false
+### fallback: false
 
 <img src="Next.js.assets/Screen Shot 2022-03-19 at 1.28.26 PM.png" alt="Screen Shot 2022-03-19 at 1.28.26 PM" style="zoom:60%;" />
 
@@ -430,7 +430,7 @@ Note: `getStaticPaths()` tells server the "static path" to be pre-rendered
 
 `fallback: false` will redirect any routes doesn't exist in `getStaticPaths()` to 404 page.
 
-#### fallback: true
+### fallback: true
 
 <img src="Next.js.assets/Screen Shot 2022-03-19 at 1.41.36 PM.png" alt="Screen Shot 2022-03-19 at 1.41.36 PM" style="zoom:50%;" />
 
@@ -464,19 +464,39 @@ const CoffeeStore = (props) => {
 };
 ```
 
-### Incremental Site Regeration (ISR)
+## Incremental Site Regeration (ISR)
 
 <img src="Next.js.assets/Screen Shot 2022-03-18 at 2.21.45 PM.png" alt="Screen Shot 2022-03-18 at 2.21.45 PM" style="zoom:50%;" />
 
 We set an interval. i.e. 60s. When user first request to our page, we only serve the cached one(v1) no matter how many times user send new requests. Untill 60s passed, server will generate the latest page when user request.
 
-### Server-side rendering (SSR)
+## Server-side rendering (SSR)
 
 Applying this when we need to provide user the latest data timely. i.e. news(we want user see the latest news every time). We won't be able to cache data on CDN. We also need to generate page for each request. These make the process slower on server side, but makes client side faster than CSR
 
+### Server0side rendering (SSR) vs Static Generation(SSG)
 
+<img src="Next.js.assets/Screen Shot 2022-03-27 at 4.57.29 PM.png" alt="Screen Shot 2022-03-27 at 4.57.29 PM" style="zoom:50%;" />
 
-### Client-side rendering (CSR)
+#### /pages/example.js
+
+```react
+export const getServerSideProps = async () => {
+  const disneyVideos = await fetchVideos();
+
+  return {
+    props: {
+      disneyVideos,
+    },
+  };
+};
+
+export default function Example(props) {
+	console.log(props.disneyVideos)
+}
+```
+
+## Client-side rendering (CSR)
 
 <img src="Next.js.assets/Screen Shot 2022-03-18 at 2.39.19 PM.png" alt="Screen Shot 2022-03-18 at 2.39.19 PM" style="zoom:50%;" />
 
