@@ -68,5 +68,16 @@ https://www.framer.com/docs/
 
 ## Youtube API
 
-https://developers.google.com/youtube/v3/docs/search/list?apix_params=%7B%22part%22%3A%5B%22snippet%22%5D%2C%22maxResults%22%3A25%2C%22q%22%3A%22surfing%22%7D
+https://developers.google.com/youtube/v3/docs/search/
 
+Go setup a new API key before using Youtube API:
+
+<img src="Useful Tools.assets/Screen Shot 2022-03-27 at 7.33.08 PM.png" alt="Screen Shot 2022-03-27 at 7.33.08 PM" style="zoom:50%;" />
+
+Then enable YouTube Data API
+
+## Have I been pwned
+
+https://haveibeenpwned.com/
+
+Check if people's security data leaked
