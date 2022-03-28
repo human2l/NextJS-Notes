@@ -162,6 +162,42 @@ Note: Remember to wrap the `<a>`, don't use `<Link>` only.
 - [`shallow`](https://nextjs.org/docs/routing/shallow-routing) - Update the path of the current page without rerunning [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props), [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props) or [`getInitialProps`](https://nextjs.org/docs/api-reference/data-fetching/get-initial-props). Defaults to `false`
 - `locale` - The active locale is automatically prepended. `locale` allows for providing a different locale. When `false` `href` has to include the locale as the default behavior is disabled.
 
+## router.events
+
+You can listen to different events happening inside the Next.js Router. Here's a list of supported events:
+
+- `routeChangeStart(url, { shallow })` - Fires when a route starts to change
+
+- `routeChangeComplete(url, { shallow })` - Fires when a route changed completely
+
+- `routeChangeError(err, url, { shallow })` - Fires when there's an error when changing routes, or a route load is cancelled
+
+- `err.cancelled` - Indicates if the navigation was cancelled
+
+- `beforeHistoryChange(url, { shallow })` - Fires before changing the browser's history
+
+- `hashChangeStart(url, { shallow })` - Fires when the hash will change but not the page
+
+- `hashChangeComplete(url, { shallow })` - Fires when the hash has changed but not the page
+
+> **Note:** Here `url` is the URL shown in the browser, including the [`basePath`](https://nextjs.org/docs/api-reference/next.config.js/basepath).
+
+example: setIsLoading to false when page has been redirected(logged in). (or user could keep click the login button)
+
+```react
+useEffect(() => {
+    const handleComplete = () => {
+      setIsLoading(false);
+    };
+    router.events.on("routeChangeComplete", handleComplete);
+    router.events.on("routeChangeError", handleComplete);
+    return () => {
+      router.events.off("routeChangeComplete", handleComplete);
+      router.events.off("routeChangeError", handleComplete);
+    };
+  }, [router.events]);
+```
+
 # Image Component
 
 Next.js by default lazy load all of the images on the page. As user scroll down, Next.js will download the image that about to show.
