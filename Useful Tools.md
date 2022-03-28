@@ -81,3 +81,8 @@ Then enable YouTube Data API
 https://haveibeenpwned.com/
 
 Check if people's security data leaked
+
+## Magic
+
+Passwordless authentication service provider
+
