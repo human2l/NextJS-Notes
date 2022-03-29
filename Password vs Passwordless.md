@@ -50,6 +50,8 @@ export const createMagic = () => {
 };
 ```
 
+##### [`loginWithMagicLink`](https://magic.link/docs/api-reference/client-side-sdks/web#loginwithmagiclink)
+
 #### pages/login.js
 
 ```react
@@ -80,4 +82,24 @@ const handleLoginWithEmail = async (e) => {
 Magic will create an IndexedDB in browser to store keys:
 
 <img src="Password vs Passwordless.assets/Screen Shot 2022-03-28 at 2.34.36 PM.png" alt="Screen Shot 2022-03-28 at 2.34.36 PM" style="zoom:50%;" />
+
+##### [`getMetadata`](https://magic.link/docs/api-reference/client-side-sdks/web#getmetadata)
+
+```react
+useEffect(() => {
+    (async () => {
+      // Assumes a user is already logged in
+      try {
+        const { email } = await magic.user.getMetadata();
+        if (!email) {
+          router.push("/login");
+          return;
+        }
+        setUsername(email);
+      } catch (err) {
+        console.error("Error retrieving email", err);
+      }
+    })()
+  }, [router]);
+```
 
