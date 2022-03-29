@@ -1,3 +1,7 @@
+[toc]
+
+# Basics
+
 ## Start a new project
 
 `npx create-next-app` or `yarn create-next-app`
@@ -835,6 +839,41 @@ const fetchedCoffeeStores = await fetch(
 
 Note: fetch API route from `getStaticProps` is **NOT recommanded**, we should directly write server-side code in `getStaticProps`
 
+# Middleware
+
+Note: Middleware is a new feature of v12
+
+<img src="Next.js.assets/Screen Shot 2022-03-28 at 10.04.44 PM.png" alt="Screen Shot 2022-03-28 at 10.04.44 PM" style="zoom:50%;" />
+
+## [Execution Order](https://nextjs.org/docs/middleware#execution-order)
+
+If your Middleware is created in `/pages/_middleware.ts`, it will run on all routes within the `/pages` directory. The below example assumes you have `about.tsx` and `teams.tsx` routes.
+
+```bash
+- package.json
+- /pages
+    _middleware.ts # Will run on all routes under /pages
+    index.tsx
+    about.tsx
+    teams.tsx
+```
+
+If you *do* have sub-directories with nested routes, Middleware will run from the top down. For example, if you have `/pages/about/_middleware.ts` and `/pages/about/team/_middleware.ts`, `/about` will run first and then `/about/team`. The below example shows how this works with a nested routing structure.
+
+```bash
+- package.json
+- /pages
+    index.tsx
+    - /about
+      _middleware.ts # Will run first
+      about.tsx
+      - /teams
+        _middleware.ts # Will run second
+        teams.tsx
+```
+
+Middleware runs directly after `redirects` and `headers`, before the first filesystem lookup. This excludes `/_next` files.
+
 # Lint
 
 #### package.json
@@ -915,3 +954,14 @@ Use Chrome lighhouse tool or https://web.dev to get a lighthouse report
 
 try to fix it one by one till all green
 
+
+
+
+
+
+
+
+
+# TODOs
+
+TODO: add code for middleware
