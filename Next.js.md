@@ -504,7 +504,7 @@ const CoffeeStore = (props) => {
 };
 ```
 
-## Incremental Site Regeration (ISR)
+## Incremental Static Regeration (ISR)
 
 <img src="Next.js.assets/Screen Shot 2022-03-18 at 2.21.45 PM.png" alt="Screen Shot 2022-03-18 at 2.21.45 PM" style="zoom:50%;" />
 
