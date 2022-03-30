@@ -516,7 +516,7 @@ We set an interval. i.e. 60s. When user first request to our page, we only serve
 
 <img src="Next.js.assets/Screen Shot 2022-03-30 at 7.30.43 PM.png" alt="Screen Shot 2022-03-30 at 7.30.43 PM" style="zoom:50%;" />
 
-If the data fetching of our server is very quick, we can use blocking as fallback. If it is slow, we use true as fallback to show user a loading state.
+If the data fetching of our server is very quick, we can use `blocking` as fallback. If it is slow, we use `true` as fallback to show user a loading state.
 
 ## Server-side rendering (SSR)
 
@@ -553,6 +553,10 @@ i.e. personal dashboard. administration software
 Using React `useEffect` hooks
 
 `SWR` is a React hook built by Next.js. Very useful for client side fetching
+
+# Comparison of CSR, SSR, SSG and ISR
+
+https://dev.to/pahanperera/visual-explanation-and-comparison-of-csr-ssr-ssg-and-isr-34ea
 
 # SWR
 
