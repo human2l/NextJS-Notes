@@ -510,6 +510,14 @@ const CoffeeStore = (props) => {
 
 We set an interval. i.e. 60s. When user first request to our page, we only serve the cached one(v1) no matter how many times user send new requests. Untill 60s passed, server will generate the latest page when user request.
 
+<img src="Next.js.assets/Screen Shot 2022-03-30 at 7.24.15 PM.png" alt="Screen Shot 2022-03-30 at 7.24.15 PM" style="zoom:50%;" />
+
+### Fallback
+
+<img src="Next.js.assets/Screen Shot 2022-03-30 at 7.30.43 PM.png" alt="Screen Shot 2022-03-30 at 7.30.43 PM" style="zoom:50%;" />
+
+If the data fetching of our server is very quick, we can use blocking as fallback. If it is slow, we use true as fallback to show user a loading state.
+
 ## Server-side rendering (SSR)
 
 Applying this when we need to provide user the latest data timely. i.e. news(we want user see the latest news every time). We won't be able to cache data on CDN. We also need to generate page for each request. These make the process slower on server side, but makes client side faster than CSR
