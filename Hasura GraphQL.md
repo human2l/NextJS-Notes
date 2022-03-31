@@ -18,3 +18,7 @@ Now the GraphiQL is ready to go:
 
 <img src="Hasura GraphQL.assets/Screen Shot 2022-03-31 at 9.41.05 PM.png" alt="Screen Shot 2022-03-31 at 9.41.05 PM" style="zoom:50%;" />
 
+We can also see and manipulate the same datadase table in SQL way:
+
+<img src="Hasura GraphQL.assets/Screen Shot 2022-03-31 at 9.45.11 PM.png" alt="Screen Shot 2022-03-31 at 9.45.11 PM" style="zoom:50%;" />
+
