@@ -22,3 +22,8 @@ We can also see and manipulate the same datadase table in SQL way:
 
 <img src="Hasura GraphQL.assets/Screen Shot 2022-03-31 at 9.45.11 PM.png" alt="Screen Shot 2022-03-31 at 9.45.11 PM" style="zoom:50%;" />
 
+Set permission for user:
+
+Allow only the user him/herself(with issuer set in header as "X-Hasura-User-Id") have permission to change the row with the same issuer
+
+<img src="Hasura GraphQL.assets/Screen Shot 2022-04-01 at 12.13.21 AM.png" alt="Screen Shot 2022-04-01 at 12.13.21 AM" style="zoom:50%;" />
