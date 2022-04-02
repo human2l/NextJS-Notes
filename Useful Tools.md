@@ -89,3 +89,26 @@ Passwordless authentication service provider
 ## react-modal(npm)
 
 https://www.npmjs.com/package/react-modal
+
+## jsonwebtoken(npm)
+
+https://www.npmjs.com/package/jsonwebtoken
+
+```js
+import jwt from "jsonwebtoken";
+
+const token = jwt.sign(
+        {
+          ...metadata,
+          iat: Math.floor(Date.now() / 1000),
+          exp: Math.floor(Date.now() / 1000 + 7 * 24 * 60 * 60),
+          "https://hasura.io/jwt/claims": {
+            "x-hasura-allowed-roles": ["user", "admin"],
+            "x-hasura-default-role": "user",
+            "x-hasura-user-id": `${metadata.issuer}`,
+          },
+        },
+        process.env.JWT_SECRET_KEY
+      );
+```
+
