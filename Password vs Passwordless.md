@@ -33,7 +33,15 @@ const proof = sign(claim); // Sign data with Ethereum's `personal_sign` method
 const DIDToken = btoa(JSON.stringify([proof, claim]));
 ```
 
-## Implementing Magic
+## Implementation
+
+<img src="Password vs Passwordless.assets/Screen Shot 2022-04-02 at 12.18.27 PM.png" alt="Screen Shot 2022-04-02 at 12.18.27 PM" style="zoom:50%;" />
+
+publishable api key is for client side.
+
+secret key is for server side.
+
+## Client side
 
 `npm install --save magic-sdk`
 
@@ -101,5 +109,41 @@ useEffect(() => {
       }
     })()
   }, [router]);
+```
+
+## Server side
+
+`npm install --save @magic-sdk/admin`
+
+#### /lib/magic.js
+
+```js
+import { Magic } from "@magic-sdk/admin";
+
+export const magicAdmin = new Magic(process.env.MAGIC_SERVER_KEY);
+```
+
+#### /api/login/js
+
+```js
+import { magicAdmin } from "../../lib/magic";
+
+const login = async (req, res) => {
+  if (req.method === "POST") {
+    try {
+      const auth = req.headers.authorization;
+      const didToken = auth ? auth.substr(7) : "";
+      const metadata = await magicAdmin.users.getMetadataByToken(didToken);
+      console.log({ metadata });
+
+      return res.send({ done: true });
+    } catch (error) {
+      console.log("Something went wrong logging in", error);
+      return res.status(500).send({ done: false });
+    }
+  }
+  return res.send({ done: false });
+};
+export default login;
 ```
 
