@@ -94,6 +94,8 @@ https://www.npmjs.com/package/react-modal
 
 https://www.npmjs.com/package/jsonwebtoken
 
+generate jwt:
+
 ```js
 import jwt from "jsonwebtoken";
 
@@ -110,6 +112,12 @@ const token = jwt.sign(
         },
         process.env.JWT_SECRET_KEY
       );
+```
+
+decode jwt:
+
+```js
+const decoded = jwt.verify(token, process.env.JWT_SECRET);
 ```
 
 ## cookie
