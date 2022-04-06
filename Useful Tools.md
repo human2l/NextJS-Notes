@@ -124,6 +124,8 @@ const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
 https://www.npmjs.com/package/cookie
 
+set cookie:
+
 ```js
 import cookie from "cookie";
 const MAX_AGE = 7 * 24 * 60 * 60;
@@ -136,5 +138,11 @@ export const setTokenCookie = (token, res) => {
   });
   res.setHeader("Set-Cookie", setCookie);
 };
+```
+
+get cookie:
+
+```js
+const token = req.cookies.token;
 ```
 
