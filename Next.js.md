@@ -553,12 +553,40 @@ The `context` parameter is an object containing the following keys:
 
 Note: cookies can be get from `req`
 
+[getServerSideProps return values](https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props#getserversideprops-return-values):
+
+1. notFound
+2. redirect
+3. props
+
 #### /pages/example.js
 
 ```react
 export const getServerSideProps = async (context) => {
   const disneyVideos = await fetchVideos();
+  const data = "some data"
+  const userId = "someone"
+  
+  //return notFound
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+  
+  //return redirect
+  //The permanent flag as true would be a 301 permanent redirect whereas the false option would be a 302 temporary redirect.
+  if(!userId) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
 
+  //return props
   return {
     props: {
       disneyVideos,
