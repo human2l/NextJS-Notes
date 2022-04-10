@@ -551,6 +551,8 @@ The `context` parameter is an object containing the following keys:
 - `locales` contains all supported locales (if enabled).
 - `defaultLocale` contains the configured default locale (if enabled).
 
+Note: cookies can be get from `req`
+
 #### /pages/example.js
 
 ```react
