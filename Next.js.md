@@ -522,14 +522,39 @@ If the data fetching of our server is very quick, we can use `blocking` as fallb
 
 Applying this when we need to provide user the latest data timely. i.e. news(we want user see the latest news every time). We won't be able to cache data on CDN. We also need to generate page for each request. These make the process slower on server side, but makes client side faster than CSR
 
-### Server0side rendering (SSR) vs Static Generation(SSG)
+### Server-side rendering (SSR) vs Static Generation(SSG)
 
 <img src="Next.js.assets/Screen Shot 2022-03-27 at 4.57.29 PM.png" alt="Screen Shot 2022-03-27 at 4.57.29 PM" style="zoom:50%;" />
+
+### [getServerSideProps](https://nextjs.org/docs/api-reference/data-fetching/get-server-side-props)
+
+```js
+export async function getServerSideProps(context) {
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+}
+```
+
+### Context parameter
+
+The `context` parameter is an object containing the following keys:
+
+- `params`: If this page uses a [dynamic route](https://nextjs.org/docs/routing/dynamic-routes), `params` contains the route parameters. If the page name is `[id].js` , then `params` will look like `{ id: ... }`.
+- `req`: [The `HTTP` IncomingMessage object](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+- `res`: [The `HTTP` response object](https://nodejs.org/api/http.html#http_class_http_serverresponse).
+- `query`: An object representing the query string.
+- `preview`: `preview` is `true` if the page is in the [Preview Mode](https://nextjs.org/docs/advanced-features/preview-mode) and `false` otherwise.
+- `previewData`: The [preview](https://nextjs.org/docs/advanced-features/preview-mode) data set by `setPreviewData`.
+- `resolvedUrl`: A normalized version of the request `URL` that strips the `_next/data` prefix for client transitions and includes original query values.
+- `locale` contains the active locale (if enabled).
+- `locales` contains all supported locales (if enabled).
+- `defaultLocale` contains the configured default locale (if enabled).
 
 #### /pages/example.js
 
 ```react
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context) => {
   const disneyVideos = await fetchVideos();
 
   return {
