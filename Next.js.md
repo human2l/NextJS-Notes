@@ -941,6 +941,31 @@ If you *do* have sub-directories with nested routes, Middleware will run from th
 
 Middleware runs directly after `redirects` and `headers`, before the first filesystem lookup. This excludes `/_next` files.
 
+#### pages/_middleware.js
+
+```js
+import { NextResponse } from "next/server";
+import { verifyToken } from "../lib/utils";
+
+export async function middleware(req, ev) {
+  const token = req.cookies.token;
+  const userId = await verifyToken(token);
+  if (
+    // if auth or static/login path
+    userId ||
+    req.nextUrl.pathname.includes("/login") ||
+    req.nextUrl.pathname.includes("/static")
+  ) {
+    return NextResponse.next();
+  } else {
+    // if unauth, redirect to login
+    return NextResponse.redirect(`${req.nextUrl.origin}/login`);
+  }
+}
+```
+
+
+
 # Lint
 
 #### package.json
